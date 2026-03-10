@@ -12,12 +12,13 @@ ROOT = Path(__file__).parent.parent
 sys.path.append(str(ROOT))
 sys.path.append(str(ROOT / "pipelines"))
 
-from config import DB_GOLD, MODELS_DIR
+from config import MODELS_DIR
 
 # ── Deployment mode detection ─────────────────────────────────────────────────
-# On Streamlit Cloud, gold.db is not present — parquet deploy files are used instead.
-_DEPLOY_DIR = ROOT / "data" / "deploy"
-_USE_PARQUET = not DB_GOLD.exists()
+# Use parquet if gold.db does NOT exist (i.e. on Streamlit Cloud).
+_DEPLOY_DIR  = ROOT / "data" / "deploy"
+_DB_GOLD     = ROOT / "data" / "db" / "gold.db"
+_USE_PARQUET = not _DB_GOLD.exists()
 
 
 # ── Data loaders ──────────────────────────────────────────────────────────────
@@ -27,6 +28,7 @@ def load_kiva_predictions() -> pd.DataFrame:
     if _USE_PARQUET:
         return pd.read_parquet(_DEPLOY_DIR / "kiva_predictions.parquet")
     from db import get_conn
+    from config import DB_GOLD
     with get_conn(DB_GOLD) as conn:
         return pd.read_sql_query("SELECT * FROM kiva_predictions", conn)
 
@@ -36,6 +38,7 @@ def load_sector_performance() -> pd.DataFrame:
     if _USE_PARQUET:
         return pd.read_parquet(_DEPLOY_DIR / "sector_performance.parquet")
     from db import get_conn
+    from config import DB_GOLD
     with get_conn(DB_GOLD) as conn:
         return pd.read_sql_query("SELECT * FROM sector_performance", conn)
 
@@ -43,7 +46,6 @@ def load_sector_performance() -> pd.DataFrame:
 @st.cache_data
 def load_kiva_features() -> pd.DataFrame:
     if _USE_PARQUET:
-        # kiva_features not in deploy set — return empty frame with expected cols
         cols = [
             "id", "loan_amount", "funded_ratio", "term_in_months",
             "sector_standardised", "country_code", "country",
@@ -54,6 +56,7 @@ def load_kiva_features() -> pd.DataFrame:
         ]
         return pd.DataFrame(columns=cols)
     from db import get_conn
+    from config import DB_GOLD
     with get_conn(DB_GOLD) as conn:
         return pd.read_sql_query(
             """SELECT id, loan_amount, funded_ratio, term_in_months,
@@ -70,8 +73,9 @@ def load_kiva_features() -> pd.DataFrame:
 @st.cache_data
 def load_lc_features_sample(n: int = 50000) -> pd.DataFrame:
     if _USE_PARQUET:
-        return pd.DataFrame()  # not needed on Cloud
+        return pd.DataFrame()
     from db import get_conn
+    from config import DB_GOLD
     with get_conn(DB_GOLD) as conn:
         return pd.read_sql_query(f"SELECT * FROM lc_features LIMIT {n}", conn)
 
