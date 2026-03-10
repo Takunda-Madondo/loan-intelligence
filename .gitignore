@@ -1,0 +1,33 @@
+# gitignore 
+# Environment
+.env
+venv/
+
+# Data — too large
+data/raw/
+data/db/
+
+# Pycache
+__pycache__/
+*.pyc
+*.pyo
+
+# Models — keep artifacts, ignore mlflow
+models/mlflow/
+
+# IDE / OS
+.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# Misc
+*.csv
+*.zip
+*.parquet
+!data/deploy/*.parquet
+git
+gitignore
