@@ -12,24 +12,48 @@ ROOT = Path(__file__).parent.parent
 sys.path.append(str(ROOT))
 sys.path.append(str(ROOT / "pipelines"))
 
-from config import DB_GOLD, DB_SILVER, MODELS_DIR
-from db import get_conn
+from config import DB_GOLD, MODELS_DIR
 
+# ── Deployment mode detection ─────────────────────────────────────────────────
+# On Streamlit Cloud, gold.db is not present — parquet deploy files are used instead.
+_DEPLOY_DIR = ROOT / "data" / "deploy"
+_USE_PARQUET = not DB_GOLD.exists()
+
+
+# ── Data loaders ──────────────────────────────────────────────────────────────
 
 @st.cache_data
-def load_kiva_predictions():
+def load_kiva_predictions() -> pd.DataFrame:
+    if _USE_PARQUET:
+        return pd.read_parquet(_DEPLOY_DIR / "kiva_predictions.parquet")
+    from db import get_conn
     with get_conn(DB_GOLD) as conn:
         return pd.read_sql_query("SELECT * FROM kiva_predictions", conn)
 
 
 @st.cache_data
-def load_sector_performance():
+def load_sector_performance() -> pd.DataFrame:
+    if _USE_PARQUET:
+        return pd.read_parquet(_DEPLOY_DIR / "sector_performance.parquet")
+    from db import get_conn
     with get_conn(DB_GOLD) as conn:
         return pd.read_sql_query("SELECT * FROM sector_performance", conn)
 
 
 @st.cache_data
-def load_kiva_features():
+def load_kiva_features() -> pd.DataFrame:
+    if _USE_PARQUET:
+        # kiva_features not in deploy set — return empty frame with expected cols
+        cols = [
+            "id", "loan_amount", "funded_ratio", "term_in_months",
+            "sector_standardised", "country_code", "country",
+            "is_female_borrower", "lender_count", "macro_risk_score",
+            "sector_default_rate", "gdp_growth", "inflation_rate",
+            "unemployment_rate", "poverty_rate", "disbursed_year",
+            "activity", "region",
+        ]
+        return pd.DataFrame(columns=cols)
+    from db import get_conn
     with get_conn(DB_GOLD) as conn:
         return pd.read_sql_query(
             """SELECT id, loan_amount, funded_ratio, term_in_months,
@@ -39,12 +63,15 @@ def load_kiva_features():
                unemployment_rate, poverty_rate, disbursed_year,
                activity, region
                FROM kiva_features""",
-            conn
+            conn,
         )
 
 
 @st.cache_data
-def load_lc_features_sample(n=50000):
+def load_lc_features_sample(n: int = 50000) -> pd.DataFrame:
+    if _USE_PARQUET:
+        return pd.DataFrame()  # not needed on Cloud
+    from db import get_conn
     with get_conn(DB_GOLD) as conn:
         return pd.read_sql_query(f"SELECT * FROM lc_features LIMIT {n}", conn)
 
@@ -57,38 +84,40 @@ def load_model():
 
 
 @st.cache_data
-def load_feature_list():
+def load_feature_list() -> list:
     path = MODELS_DIR / "feature_list.json"
     with open(path) as f:
         return json.load(f)
 
 
 @st.cache_data
-def load_model_metrics():
+def load_model_metrics() -> dict:
     path = MODELS_DIR / "model_metrics.json"
     with open(path) as f:
         return json.load(f)
 
 
 @st.cache_data
-def load_shap_importance():
+def load_shap_importance() -> pd.DataFrame:
     path = MODELS_DIR / "shap_importance.json"
     with open(path) as f:
         return pd.read_json(f)
 
 
+# ── Constants ─────────────────────────────────────────────────────────────────
+
 AFRICAN_COUNTRIES = [
-    "KE","UG","TZ","RW","ET","GH","NG","SN","ML",
-    "MZ","ZM","ZW","MW","MG","CM","BF","TG","BJ","GN"
+    "KE", "UG", "TZ", "RW", "ET", "GH", "NG", "SN", "ML",
+    "MZ", "ZM", "ZW", "MW", "MG", "CM", "BF", "TG", "BJ", "GN",
 ]
 
 ISO3_MAP = {
-    "KE":"KEN","UG":"UGA","TZ":"TZA","RW":"RWA","ET":"ETH",
-    "GH":"GHA","NG":"NGA","SN":"SEN","ML":"MLI","MZ":"MOZ",
-    "ZM":"ZMB","ZW":"ZWE","MW":"MWI","MG":"MDG","CM":"CMR",
-    "BF":"BFA","TG":"TGO","BJ":"BEN","GN":"GIN","SL":"SLE",
-    "LR":"LBR","SD":"SDN","TN":"TUN","MA":"MAR","EG":"EGY",
-    "PH":"PHL","IN":"IND","KH":"KHM","TJ":"TJK","PK":"PAK",
-    "PE":"PER","BO":"BOL","CO":"COL","EC":"ECU","NP":"NPL",
-    "LB":"LBN","PS":"PSE","BZ":"BLZ",
+    "KE": "KEN", "UG": "UGA", "TZ": "TZA", "RW": "RWA", "ET": "ETH",
+    "GH": "GHA", "NG": "NGA", "SN": "SEN", "ML": "MLI", "MZ": "MOZ",
+    "ZM": "ZMB", "ZW": "ZWE", "MW": "MWI", "MG": "MDG", "CM": "CMR",
+    "BF": "BFA", "TG": "TGO", "BJ": "BEN", "GN": "GIN", "SL": "SLE",
+    "LR": "LBR", "SD": "SDN", "TN": "TUN", "MA": "MAR", "EG": "EGY",
+    "PH": "PHL", "IN": "IND", "KH": "KHM", "TJ": "TJK", "PK": "PAK",
+    "PE": "PER", "BO": "BOL", "CO": "COL", "EC": "ECU", "NP": "NPL",
+    "LB": "LBN", "PS": "PSE", "BZ": "BLZ",
 }
