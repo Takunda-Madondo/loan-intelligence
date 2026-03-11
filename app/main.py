@@ -38,6 +38,7 @@ html, body, [class*="css"], .stApp {
     border-right: none !important;
     min-width: 220px !important;
     max-width: 220px !important;
+    transition: all 0.3s ease !important;
 }
 [data-testid="stSidebar"] > div:first-child {
     padding: 0 !important;
@@ -373,7 +374,6 @@ html, body, [class*="css"], .stApp {
 
 /* Streamlit Widget Overrides */
 [data-testid="stSidebar"] * { color: inherit !important; }
-
 div[data-testid="stMetric"] { display: none !important; }
 
 .stButton > button {
@@ -439,26 +439,103 @@ div[data-testid="stMetric"] { display: none !important; }
     padding: 0.6rem 1rem !important;
 }
 
-/* Hide upload drag area decoration */
 [data-testid="stFileUploadDropzone"] {
     border-radius: 8px !important;
     border-color: #E8EAED !important;
     background: #FAFAFA !important;
 }
 
-/* Plotly chart spacing */
 .js-plotly-plot { border-radius: 6px; }
 [data-testid="stChatInput"] input {
     font-size: 0.8rem !important;
     border-radius: 8px !important;
 }
 </style>
+
+<script>
+(function () {
+    // Guard: only run once even if Streamlit re-renders this block
+    if (window.__sbToggleInit) return;
+    window.__sbToggleInit = true;
+
+    // ── 1. Inject the toggle button straight into <body> ──────────────────
+    var btn = document.createElement('button');
+    btn.id = 'sb-reopen-tab';
+    Object.assign(btn.style, {
+        position:     'fixed',
+        top:          '50%',
+        left:         '0',
+        transform:    'translateY(-50%)',
+        zIndex:       '999999',
+        background:   '#0F1117',
+        border:       '1px solid rgba(255,255,255,0.15)',
+        borderLeft:   'none',
+        borderRadius: '0 8px 8px 0',
+        color:        'rgba(255,255,255,0.8)',
+        cursor:       'pointer',
+        padding:      '14px 9px',
+        fontSize:     '13px',
+        lineHeight:   '1',
+        display:      'none',
+        boxShadow:    '2px 0 10px rgba(0,0,0,0.3)',
+        fontFamily:   'DM Sans, sans-serif',
+        transition:   'background 0.2s, color 0.2s',
+    });
+    btn.innerHTML = '&#9654;';
+    btn.title = 'Open sidebar';
+    btn.onmouseenter = function () {
+        btn.style.background = '#1c1f2e';
+        btn.style.color = '#fff';
+    };
+    btn.onmouseleave = function () {
+        btn.style.background = '#0F1117';
+        btn.style.color = 'rgba(255,255,255,0.8)';
+    };
+    btn.addEventListener('click', function () {
+        // Trigger Streamlit's own collapse control to re-open
+        var native = document.querySelector('[data-testid="collapsedControl"]');
+        if (native) native.click();
+    });
+    document.body.appendChild(btn);
+
+    // ── 2. Watch sidebar aria-expanded + sync main area width ─────────────
+    function applyState(sidebar) {
+        var collapsed = sidebar.getAttribute('aria-expanded') === 'false';
+        btn.style.display = collapsed ? 'block' : 'none';
+
+        var appView = document.querySelector('[data-testid="stAppViewContainer"]');
+        if (appView) {
+            appView.style.marginLeft = collapsed ? '0px'  : '';
+            appView.style.width      = collapsed ? '100vw': '';
+            appView.style.transition = 'margin-left 0.3s ease, width 0.3s ease';
+        }
+    }
+
+    function attachObserver(sidebar) {
+        applyState(sidebar);
+        var obs = new MutationObserver(function () { applyState(sidebar); });
+        obs.observe(sidebar, { attributes: true, attributeFilter: ['aria-expanded'] });
+    }
+
+    // ── 3. Poll until the sidebar element exists ──────────────────────────
+    var attempts = 0;
+    var poll = setInterval(function () {
+        var sidebar = document.querySelector('[data-testid="stSidebar"]');
+        if (sidebar) {
+            clearInterval(poll);
+            attachObserver(sidebar);
+        }
+        if (++attempts > 80) clearInterval(poll); // give up after ~16 s
+    }, 200);
+})();
+</script>
 """, unsafe_allow_html=True)
 
 # Session state
 for k, v in [("page","Portfolio Overview"), ("chat_history",[]), ("ai_open",False)]:
     if k not in st.session_state:
         st.session_state[k] = v
+
 
 PAGES = {
     "Portfolio Overview":  "Overview of all key metrics and investment signals",
@@ -467,8 +544,7 @@ PAGES = {
     "Loan Predictor":      "Score individual loans for default probability",
 }
 
-# Sidebar
-
+# ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("""
     <div class="sb-brand">
@@ -503,9 +579,7 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
 
-
-# Page Header
-
+# ── Page Header ────────────────────────────────────────────────────────────────
 current_page = st.session_state["page"]
 st.markdown(f"""
 <div class="pg-header">
@@ -518,8 +592,7 @@ st.markdown(f"""
 
 st.markdown('<div class="pg-body">', unsafe_allow_html=True)
 
-# Render Page
-
+# ── Render Page ────────────────────────────────────────────────────────────────
 import importlib, importlib.util
 
 PAGE_MAP = {
