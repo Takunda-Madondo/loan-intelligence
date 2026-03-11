@@ -32,16 +32,32 @@ html, body, [class*="css"], .stApp {
 #MainMenu, footer, header { visibility: hidden; }
 [data-testid="stSidebarNav"] { display: none !important; }
 
-/* Sidebar */
-[data-testid="stSidebar"] {
+/* ── Sidebar Shell ── */
+[data-testid="stSidebar"],
+[data-testid="stSidebar"] > div,
+[data-testid="stSidebar"] > div > div,
+section[data-testid="stSidebar"] {
+    background-color: #0F1117 !important;
     background: #0F1117 !important;
-    border-right: none !important;
-    min-width: 220px !important;
-    max-width: 220px !important;
-    transition: all 0.3s ease !important;
+}
+[data-testid="stSidebar"] {
+    border-right: 1px solid rgba(255,255,255,0.08) !important;
+    min-width: 230px !important;
+    max-width: 230px !important;
 }
 [data-testid="stSidebar"] > div:first-child {
     padding: 0 !important;
+    background: #0F1117 !important;
+}
+
+/* Force ALL text inside sidebar white */
+[data-testid="stSidebar"],
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] div,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] .stMarkdown {
+    color: rgba(255,255,255,0.85) !important;
 }
 
 /* Sidebar Brand */
@@ -53,37 +69,38 @@ html, body, [class*="css"], .stApp {
 .sb-brand-title {
     font-size: 1.15rem;
     font-weight: 700;
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     letter-spacing: -0.02em;
     line-height: 1.2;
 }
 .sb-brand-sub {
     font-size: 0.7rem;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.4) !important;
     margin-top: 0.2rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
 }
 
-/* Sidebar Nav */
+/* Sidebar Nav Section Label */
 .sb-nav-label {
     font-size: 0.62rem;
     font-weight: 600;
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.35) !important;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     padding: 1rem 1.4rem 0.4rem;
 }
 
-/* Override Streamlit radio for nav */
+/* Radio nav items */
 [data-testid="stSidebar"] .stRadio > div {
     gap: 0 !important;
+    background: transparent !important;
 }
 [data-testid="stSidebar"] .stRadio label {
     display: flex !important;
     align-items: center !important;
     gap: 0.6rem !important;
-    padding: 0.55rem 1.4rem !important;
+    padding: 0.6rem 1.4rem !important;
     margin: 0 !important;
     border-radius: 0 !important;
     font-size: 0.85rem !important;
@@ -92,20 +109,22 @@ html, body, [class*="css"], .stApp {
     cursor: pointer !important;
     transition: all 0.15s !important;
     border-left: 2px solid transparent !important;
+    background: transparent !important;
 }
 [data-testid="stSidebar"] .stRadio label:hover {
-    background: rgba(255,255,255,0.05) !important;
-    color: rgba(255,255,255,0.9) !important;
+    background: rgba(255,255,255,0.06) !important;
+    color: rgba(255,255,255,0.95) !important;
 }
-[data-testid="stSidebar"] .stRadio [data-checked="true"] label,
-[data-testid="stSidebar"] .stRadio label[data-checked="true"] {
-    background: rgba(99,120,255,0.15) !important;
+[data-testid="stSidebar"] .stRadio label[data-checked="true"],
+[data-testid="stSidebar"] .stRadio [data-checked="true"] > label {
+    background: rgba(99,120,255,0.18) !important;
     color: #ffffff !important;
     border-left-color: #6378FF !important;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
 }
-/* Hide radio circle */
-[data-testid="stSidebar"] .stRadio [data-baseweb="radio"] > div:first-child {
+/* Hide radio circle dot */
+[data-testid="stSidebar"] .stRadio [data-baseweb="radio"] > div:first-child,
+[data-testid="stSidebar"] .stRadio [role="radio"] {
     display: none !important;
 }
 
@@ -119,25 +138,25 @@ html, body, [class*="css"], .stApp {
     display: flex;
     justify-content: space-between;
     font-size: 0.72rem;
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.35) !important;
     margin-bottom: 0.35rem;
 }
 .sb-stat span:last-child {
-    color: rgba(255,255,255,0.55);
+    color: rgba(255,255,255,0.65) !important;
     font-weight: 500;
 }
 .sb-model-badge {
     margin-top: 0.8rem;
-    background: rgba(99,120,255,0.15);
-    border: 1px solid rgba(99,120,255,0.3);
+    background: rgba(99,120,255,0.12);
+    border: 1px solid rgba(99,120,255,0.28);
     border-radius: 6px;
-    padding: 0.5rem 0.7rem;
+    padding: 0.55rem 0.75rem;
     font-size: 0.7rem;
-    color: #a5b0ff;
-    line-height: 1.7;
+    color: #a5b0ff !important;
+    line-height: 1.8;
 }
 
-/* Main Content */
+/* ── Main Content ── */
 .main .block-container {
     padding: 0 !important;
     max-width: 100% !important;
@@ -167,7 +186,7 @@ html, body, [class*="css"], .stApp {
     padding: 1.2rem 1.8rem 1.8rem;
 }
 
-/* Toolbar (filters + AI) */
+/* Toolbar */
 .toolbar {
     background: #ffffff;
     border: 1px solid #E8EAED;
@@ -228,11 +247,7 @@ html, body, [class*="css"], .stApp {
     margin: 0.2rem 0 0.1rem;
     font-family: 'DM Mono', monospace;
 }
-.kpi-delta {
-    font-size: 0.7rem;
-    font-weight: 500;
-    white-space: nowrap;
-}
+.kpi-delta { font-size: 0.7rem; font-weight: 500; white-space: nowrap; }
 .kpi-delta.pos { color: #16A34A; }
 .kpi-delta.neg { color: #DC2626; }
 .kpi-delta.neu { color: #9CA3AF; }
@@ -251,138 +266,77 @@ html, body, [class*="css"], .stApp {
     justify-content: space-between;
     margin-bottom: 0.6rem;
 }
-.card-title {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: #111318;
-    letter-spacing: -0.01em;
-}
-.card-meta {
-    font-size: 0.67rem;
-    color: #9CA3AF;
-}
+.card-title { font-size: 0.78rem; font-weight: 600; color: #111318; letter-spacing: -0.01em; }
+.card-meta  { font-size: 0.67rem; color: #9CA3AF; }
 
 /* Status Badges */
 .badge {
     display: inline-flex; align-items: center;
     padding: 0.2rem 0.65rem;
     border-radius: 999px;
-    font-size: 0.68rem;
-    font-weight: 600;
-    gap: 0.3rem;
+    font-size: 0.68rem; font-weight: 600; gap: 0.3rem;
 }
 .badge-safe   { background:#F0FDF4; color:#166534; border:1px solid #BBF7D0; }
 .badge-medium { background:#FFFBEB; color:#92400E; border:1px solid #FDE68A; }
 .badge-risk   { background:#FEF2F2; color:#991B1B; border:1px solid #FECACA; }
 
 /* Investment Signal */
-.signal-card {
-    border-radius: 10px;
-    padding: 0.9rem 1.1rem;
-    border: 1px solid;
-    margin-bottom: 0.5rem;
-}
-.signal-invest {
-    background: #F0FDF4;
-    border-color: #BBF7D0;
-}
-.signal-avoid {
-    background: #FEF2F2;
-    border-color: #FECACA;
-}
-.signal-title {
-    font-size: 0.75rem;
-    font-weight: 700;
-    margin-bottom: 0.3rem;
-}
-.signal-invest .signal-title { color: #15803D; }
-.signal-avoid  .signal-title { color: #B91C1C; }
-.signal-body {
-    font-size: 0.72rem;
-    line-height: 1.6;
-    color: #374151;
-}
+.signal-card { border-radius:10px; padding:0.9rem 1.1rem; border:1px solid; margin-bottom:0.5rem; }
+.signal-invest { background:#F0FDF4; border-color:#BBF7D0; }
+.signal-avoid  { background:#FEF2F2; border-color:#FECACA; }
+.signal-title  { font-size:0.75rem; font-weight:700; margin-bottom:0.3rem; }
+.signal-invest .signal-title { color:#15803D; }
+.signal-avoid  .signal-title { color:#B91C1C; }
+.signal-body   { font-size:0.72rem; line-height:1.6; color:#374151; }
 
 /* AI Panel */
 .ai-trigger {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #6378FF;
-    cursor: pointer;
-    white-space: nowrap;
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.75rem; font-weight: 600; color: #6378FF;
+    cursor: pointer; white-space: nowrap;
 }
 .ai-dot {
-    width: 6px; height: 6px;
-    background: #6378FF;
-    border-radius: 50%;
+    width:6px; height:6px; background:#6378FF; border-radius:50%;
     animation: pulse 2s infinite;
 }
-@keyframes pulse {
-    0%,100% { opacity:1; } 50% { opacity:0.4; }
-}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 .chat-msg-user {
-    background: #6378FF; color: #fff;
-    border-radius: 8px 8px 2px 8px;
-    padding: 0.5rem 0.8rem;
-    font-size: 0.78rem; line-height: 1.5;
-    display: inline-block; max-width: 85%;
-    margin-bottom: 0.4rem;
+    background:#6378FF; color:#fff;
+    border-radius:8px 8px 2px 8px;
+    padding:0.5rem 0.8rem; font-size:0.78rem; line-height:1.5;
+    display:inline-block; max-width:85%; margin-bottom:0.4rem;
 }
 .chat-msg-ai {
-    background: #F3F4F6; color: #1F2937;
-    border-radius: 8px 8px 8px 2px;
-    padding: 0.5rem 0.8rem;
-    font-size: 0.78rem; line-height: 1.6;
-    display: inline-block; max-width: 90%;
-    margin-bottom: 0.4rem;
+    background:#F3F4F6; color:#1F2937;
+    border-radius:8px 8px 8px 2px;
+    padding:0.5rem 0.8rem; font-size:0.78rem; line-height:1.6;
+    display:inline-block; max-width:90%; margin-bottom:0.4rem;
 }
 
 /* Section Divider */
 .sec-div {
-    font-size: 0.64rem;
-    font-weight: 700;
-    color: #9CA3AF;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin: 0.9rem 0 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
+    font-size:0.64rem; font-weight:700; color:#9CA3AF;
+    text-transform:uppercase; letter-spacing:0.1em;
+    margin:0.9rem 0 0.5rem;
+    display:flex; align-items:center; gap:0.6rem;
 }
-.sec-div::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: #E8EAED;
-}
+.sec-div::after { content:''; flex:1; height:1px; background:#E8EAED; }
 
 /* Info Box */
 .insight-box {
-    background: #EFF6FF;
-    border: 1px solid #BFDBFE;
-    border-left: 3px solid #6378FF;
-    border-radius: 8px;
-    padding: 0.7rem 1rem;
-    font-size: 0.76rem;
-    color: #1E3A8A;
-    line-height: 1.65;
-    margin-top: 0.5rem;
+    background:#EFF6FF; border:1px solid #BFDBFE;
+    border-left:3px solid #6378FF; border-radius:8px;
+    padding:0.7rem 1rem; font-size:0.76rem; color:#1E3A8A;
+    line-height:1.65; margin-top:0.5rem;
 }
 
 /* Streamlit Widget Overrides */
-[data-testid="stSidebar"] * { color: inherit !important; }
 div[data-testid="stMetric"] { display: none !important; }
 
 .stButton > button {
-    background: #6378FF !important;
-    color: #fff !important;
-    border: none !important;
-    border-radius: 7px !important;
-    font-size: 0.78rem !important;
-    font-weight: 500 !important;
+    background: #6378FF !important; color: #fff !important;
+    border: none !important; border-radius: 7px !important;
+    font-size: 0.78rem !important; font-weight: 500 !important;
     padding: 0.35rem 0.9rem !important;
     font-family: 'DM Sans', sans-serif !important;
     transition: background 0.15s !important;
@@ -390,36 +344,26 @@ div[data-testid="stMetric"] { display: none !important; }
 .stButton > button:hover { background: #4F63E0 !important; }
 
 .stSelectbox label, .stSlider label, .stNumberInput label {
-    font-size: 0.72rem !important;
-    color: #6B7280 !important;
-    font-weight: 500 !important;
-    margin-bottom: 0.15rem !important;
+    font-size: 0.72rem !important; color: #6B7280 !important;
+    font-weight: 500 !important; margin-bottom: 0.15rem !important;
 }
 .stSelectbox > div > div {
-    border-radius: 7px !important;
-    border-color: #E8EAED !important;
-    font-size: 0.8rem !important;
-    min-height: 34px !important;
+    border-radius: 7px !important; border-color: #E8EAED !important;
+    font-size: 0.8rem !important; min-height: 34px !important;
 }
 
 .stTabs [data-baseweb="tab-list"] {
-    background: transparent !important;
-    gap: 0 !important;
-    border-bottom: 1px solid #E8EAED !important;
-    margin-bottom: 0.8rem !important;
+    background: transparent !important; gap: 0 !important;
+    border-bottom: 1px solid #E8EAED !important; margin-bottom: 0.8rem !important;
 }
 .stTabs [data-baseweb="tab"] {
-    font-size: 0.78rem !important;
-    font-weight: 500 !important;
-    color: #6B7280 !important;
-    padding: 0.45rem 1rem !important;
+    font-size: 0.78rem !important; font-weight: 500 !important;
+    color: #6B7280 !important; padding: 0.45rem 1rem !important;
     background: transparent !important;
-    border-bottom: 2px solid transparent !important;
-    margin-bottom: -1px !important;
+    border-bottom: 2px solid transparent !important; margin-bottom: -1px !important;
 }
 .stTabs [aria-selected="true"] {
-    color: #6378FF !important;
-    border-bottom-color: #6378FF !important;
+    color: #6378FF !important; border-bottom-color: #6378FF !important;
     font-weight: 600 !important;
 }
 
@@ -427,88 +371,96 @@ div[data-testid="stMetric"] { display: none !important; }
 [data-testid="stDataFrame"] table { font-size: 0.78rem !important; }
 
 .stExpander {
-    border: 1px solid #E8EAED !important;
-    border-radius: 10px !important;
-    background: #ffffff !important;
-    margin-bottom: 0.75rem !important;
+    border: 1px solid #E8EAED !important; border-radius: 10px !important;
+    background: #ffffff !important; margin-bottom: 0.75rem !important;
 }
 .stExpander summary {
-    font-size: 0.78rem !important;
-    font-weight: 600 !important;
-    color: #374151 !important;
-    padding: 0.6rem 1rem !important;
+    font-size: 0.78rem !important; font-weight: 600 !important;
+    color: #374151 !important; padding: 0.6rem 1rem !important;
 }
-
 [data-testid="stFileUploadDropzone"] {
-    border-radius: 8px !important;
-    border-color: #E8EAED !important;
+    border-radius: 8px !important; border-color: #E8EAED !important;
     background: #FAFAFA !important;
 }
-
 .js-plotly-plot { border-radius: 6px; }
 [data-testid="stChatInput"] input {
-    font-size: 0.8rem !important;
-    border-radius: 8px !important;
+    font-size: 0.8rem !important; border-radius: 8px !important;
+}
+
+/* ── Menu re-open button (shown when sidebar is collapsed) ── */
+#sb-menu-btn {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 999999;
+    display: none;                          /* shown by JS when collapsed */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: #0F1117;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    color: rgba(255,255,255,0.85);
+    cursor: pointer;
+    padding: 14px 10px;
+    box-shadow: 3px 0 12px rgba(0,0,0,0.35);
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s, color 0.2s;
+    writing-mode: initial;
+}
+#sb-menu-btn:hover {
+    background: #1c1f2e;
+    color: #fff;
+}
+#sb-menu-btn .menu-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 6px;
+}
+#sb-menu-btn .menu-icon span {
+    display: block;
+    width: 14px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+}
+#sb-menu-btn .menu-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    transform: rotate(180deg);
 }
 </style>
 
+<div id="sb-menu-btn" title="Open navigation">
+    <div class="menu-icon">
+        <span></span><span></span><span></span>
+    </div>
+    <div class="menu-label">Menu</div>
+</div>
+
 <script>
 (function () {
-    // Guard: only run once even if Streamlit re-renders this block
     if (window.__sbToggleInit) return;
     window.__sbToggleInit = true;
 
-    // ── 1. Inject the toggle button straight into <body> ──────────────────
-    var btn = document.createElement('button');
-    btn.id = 'sb-reopen-tab';
-    Object.assign(btn.style, {
-        position:     'fixed',
-        top:          '50%',
-        left:         '0',
-        transform:    'translateY(-50%)',
-        zIndex:       '999999',
-        background:   '#0F1117',
-        border:       '1px solid rgba(255,255,255,0.15)',
-        borderLeft:   'none',
-        borderRadius: '0 8px 8px 0',
-        color:        'rgba(255,255,255,0.8)',
-        cursor:       'pointer',
-        padding:      '14px 9px',
-        fontSize:     '13px',
-        lineHeight:   '1',
-        display:      'none',
-        boxShadow:    '2px 0 10px rgba(0,0,0,0.3)',
-        fontFamily:   'DM Sans, sans-serif',
-        transition:   'background 0.2s, color 0.2s',
-    });
-    btn.innerHTML = '&#9654;';
-    btn.title = 'Open sidebar';
-    btn.onmouseenter = function () {
-        btn.style.background = '#1c1f2e';
-        btn.style.color = '#fff';
-    };
-    btn.onmouseleave = function () {
-        btn.style.background = '#0F1117';
-        btn.style.color = 'rgba(255,255,255,0.8)';
-    };
+    var btn = document.getElementById('sb-menu-btn');
+
     btn.addEventListener('click', function () {
-        // Trigger Streamlit's own collapse control to re-open
         var native = document.querySelector('[data-testid="collapsedControl"]');
         if (native) native.click();
     });
-    document.body.appendChild(btn);
 
-    // ── 2. Watch sidebar aria-expanded + sync main area width ─────────────
     function applyState(sidebar) {
         var collapsed = sidebar.getAttribute('aria-expanded') === 'false';
-        btn.style.display = collapsed ? 'block' : 'none';
-
-        var appView = document.querySelector('[data-testid="stAppViewContainer"]');
-        if (appView) {
-            appView.style.marginLeft = collapsed ? '0px'  : '';
-            appView.style.width      = collapsed ? '100vw': '';
-            appView.style.transition = 'margin-left 0.3s ease, width 0.3s ease';
-        }
+        btn.style.display = collapsed ? 'flex' : 'none';
     }
 
     function attachObserver(sidebar) {
@@ -517,7 +469,6 @@ div[data-testid="stMetric"] { display: none !important; }
         obs.observe(sidebar, { attributes: true, attributeFilter: ['aria-expanded'] });
     }
 
-    // ── 3. Poll until the sidebar element exists ──────────────────────────
     var attempts = 0;
     var poll = setInterval(function () {
         var sidebar = document.querySelector('[data-testid="stSidebar"]');
@@ -525,7 +476,7 @@ div[data-testid="stMetric"] { display: none !important; }
             clearInterval(poll);
             attachObserver(sidebar);
         }
-        if (++attempts > 80) clearInterval(poll); // give up after ~16 s
+        if (++attempts > 80) clearInterval(poll);
     }, 200);
 })();
 </script>
