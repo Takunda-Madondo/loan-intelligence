@@ -4,7 +4,7 @@
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![XGBoost](https://img.shields.io/badge/ML-XGBoost-orange)
 ![Streamlit](https://img.shields.io/badge/Dashboard-Streamlit-red)
-![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
+![Status](https://img.shields.io/badge/Status-In%20Completed-green)
 
 ---
 
