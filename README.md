@@ -4,7 +4,7 @@
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![XGBoost](https://img.shields.io/badge/ML-XGBoost-orange)
 ![Streamlit](https://img.shields.io/badge/Dashboard-Streamlit-red)
-![Status](https://img.shields.io/badge/Status-In%20Completed-green)
+![Status](https://img.shields.io/badge/Status-%20Completed-green)
 
 ---
 
@@ -12,10 +12,10 @@
 
 Microfinance institutions (MFIs) operating in Sub-Saharan Africa face two critical challenges:
 
-1. **Default Risk** — Which borrowers are likely to default, and why?
-2. **Capital Allocation** — Which sectors (agriculture, retail, services) deliver the best return on lending?
+1. **Default Risk** : Which borrowers are likely to default, and why?
+2. **Capital Allocation** : Which sectors (agriculture, retail, services) deliver the best return on lending?
 
-This project builds a full data science solution — from raw data ingestion to a live dashboard — that answers both questions using real-world loan data.
+This project builds a full data science solution, from raw data ingestion to a live dashboard that answers both questions using real-world loan data.
 
 **Target Users:** Credit risk teams, loan officers, MFI portfolio managers
 
@@ -142,23 +142,21 @@ loan-intelligence/
 
 ## 📈 Key Features
 
-- **Default Prediction** — Upload any CSV of loan applicants, get default probabilities
-- **Sector Dashboard** — Visual risk vs return across Agriculture, Retail, Services, etc.
-- **Country Risk Map** — Choropleth of default rates enriched with World Bank macro data
-- **NL Querying** — Ask plain-English questions: *"Which sector in Kenya has the lowest default rate?"*
-- **SHAP Explainability** — Understand WHY a specific loan is flagged as high risk
+- **Default Prediction**: Upload any CSV of loan applicants, get default probabilities
+- **Sector Dashboard**: Visual risk vs return across Agriculture, Retail, Services, etc.
+- **Country Risk Map**: Choropleth of default rates enriched with World Bank macro data
+- **NL Querying**: Ask plain-English questions: *"Which sector in Kenya has the lowest default rate?"*
+- **SHAP Explainability**: Understand WHY a specific loan is flagged as high risk
 
 ---
 
 ## 🗺️ Development Stages
 
-- [x] Stage 1 — Project setup & data ingestion
-- [ ] Stage 2 — ETL pipeline (Bronze → Silver → Gold)
-- [ ] Stage 3 — EDA & feature engineering
-- [ ] Stage 4 — ML model training
-- [ ] Stage 5 — Streamlit dashboard + NL querying
-- [ ] Stage 6 — Deployment
+- [x] Stage 1: Project setup & data ingestion
+- [ ] Stage 2: ETL pipeline (Bronze → Silver → Gold)
+- [ ] Stage 3: EDA & feature engineering
+- [ ] Stage 4: ML model training
+- [ ] Stage 5: Streamlit dashboard + NL querying
+- [ ] Stage 6: Deployment
 
 ---
-
-*Built as a portfolio project demonstrating the full data science lifecycle.*
