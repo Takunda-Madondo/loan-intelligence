@@ -41,39 +41,6 @@ def load_sector_performance() -> pd.DataFrame:
 
 
 @st.cache_data
-def load_portfolio_allocations() -> pd.DataFrame:
-    """
-    Loads pre-computed LP optimisation results from gold.db or parquet.
-    Returns empty DataFrame if neither source is available —
-    the portfolio page falls back to computing allocations on-the-fly.
-    """
-    parquet_path = _DEPLOY_DIR / "portfolio_allocations.parquet"
-    if _USE_PARQUET:
-        if parquet_path.exists():
-            return pd.read_parquet(parquet_path)
-        return pd.DataFrame()   # fallback — page computes live
-    from db import get_conn
-    try:
-        with get_conn(DB_GOLD) as conn:
-            return pd.read_sql_query("SELECT * FROM portfolio_allocations", conn)
-    except Exception:
-        return pd.DataFrame()   # table not yet created — page computes live
-
-
-@st.cache_data
-def load_portfolio_summary() -> list:
-    """
-    Loads the profile-level summary JSON written by 07_portfolio_optimisation.py.
-    Returns empty list if not yet generated.
-    """
-    path = MODELS_DIR / "portfolio_summary.json"
-    if path.exists():
-        with open(path) as f:
-            return json.load(f)
-    return []
-
-
-@st.cache_data
 def load_kiva_features() -> pd.DataFrame:
     if _USE_PARQUET:
         # kiva_features not in deploy set — return empty frame with expected cols

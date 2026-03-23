@@ -203,11 +203,10 @@ for k, v in [("page", "Portfolio Overview"), ("chat_history", []), ("ai_open", F
         st.session_state[k] = v
 
 PAGES = {
-    "Portfolio Overview":      "Overview of all key metrics and investment signals",
-    "Investment Signals":      "Where to invest and where to avoid - by sector & country",
-    "Portfolio Optimisation":  "LP-optimised capital allocation across Conservative, Balanced and Aggressive profiles",
-    "Default Risk Map":        "Geographic risk distribution across markets",
-    "Loan Predictor":          "Score individual loans for default probability",
+    "Portfolio Overview":  "Overview of all key metrics and investment signals",
+    "Investment Signals":  "Where to invest and where to avoid - by sector & country",
+    "Default Risk Map":    "Geographic risk distribution across markets",
+    "Loan Predictor":      "Score individual loans for default probability",
 }
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
@@ -247,11 +246,10 @@ st.markdown('<div class="pg-body">', unsafe_allow_html=True)
 import importlib, importlib.util
 
 PAGE_MAP = {
-    "Portfolio Overview":     "overview",
-    "Investment Signals":     "investment_signals",
-    "Portfolio Optimisation": "portfolio_optimisation",
-    "Default Risk Map":       "country_risk",
-    "Loan Predictor":         "loan_predictor",
+    "Portfolio Overview": "overview",
+    "Investment Signals": "investment_signals",
+    "Default Risk Map":   "country_risk",
+    "Loan Predictor":     "loan_predictor",
 }
 
 mod_name = PAGE_MAP[current_page]

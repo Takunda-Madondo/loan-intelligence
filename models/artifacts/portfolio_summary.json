@@ -1,0 +1,26 @@
+[
+  {
+    "profile": "Conservative",
+    "portfolio_default_rate_pct": 6.5,
+    "portfolio_expected_return_pct": 55.86,
+    "total_expected_profit_usd": 558591.04,
+    "risk_ceiling_pct": 6.5,
+    "description": "Regulated deposit-taking MFI. Tight covenants, low risk tolerance."
+  },
+  {
+    "profile": "Balanced",
+    "portfolio_default_rate_pct": 8.2,
+    "portfolio_expected_return_pct": 66.27,
+    "total_expected_profit_usd": 662673.12,
+    "risk_ceiling_pct": 8.2,
+    "description": "Mid-size African MFI. Balances financial sustainability with social mission."
+  },
+  {
+    "profile": "Aggressive",
+    "portfolio_default_rate_pct": 9.09,
+    "portfolio_expected_return_pct": 71.45,
+    "total_expected_profit_usd": 714489.76,
+    "risk_ceiling_pct": 10.5,
+    "description": "Growth-oriented fintech MFI. Capturing underserved segments, accepting higher PAR30."
+  }
+]
