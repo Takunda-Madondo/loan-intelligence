@@ -642,7 +642,7 @@ def render():
         with col:
             _profile_card(name, meta, result, sectors, result["fractions"])
             fig = _allocation_donut(sectors, result["fractions"], name, meta["colour"])
-            st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+            st.plotly_chart(fig, width='stretch', config={"displayModeBar": False})
 
     # ── Comparison charts ─────────────────────────────────────────────────────
     section("RISK-RETURN ANALYSIS")
@@ -652,20 +652,20 @@ def render():
         card("Sector Allocation by Profile",
              "How each risk philosophy distributes capital across sectors")
         st.plotly_chart(_comparison_bar(sectors, all_results),
-                        use_container_width=True, config={"displayModeBar": False})
+                        width='stretch', config={"displayModeBar": False})
         card_end()
 
     with ch2:
         card("Risk-Return Trade-off",
              "Portfolio default rate vs expected return per profile")
         st.plotly_chart(_return_risk_scatter(all_results),
-                        use_container_width=True, config={"displayModeBar": False})
+                        width='stretch', config={"displayModeBar": False})
         card_end()
 
     # Expected profit bar
     card("Expected Profit by Profile", f"Based on ${budget:,.0f} capital deployment")
     st.plotly_chart(_waterfall_profit(all_results, budget),
-                    use_container_width=True, config={"displayModeBar": False})
+                    width='stretch', config={"displayModeBar": False})
     card_end()
 
     # ── Sector detail table ───────────────────────────────────────────────────
@@ -705,8 +705,8 @@ def render():
 
     card("Full Allocation Table", "All sectors and profiles")
     st.dataframe(
-        detail_df.style.applymap(_colour_tier, subset=["Risk Tier"]),
-        use_container_width=True,
+        detail_df.style.map(_colour_tier, subset=["Risk Tier"]),
+        width='stretch',
         hide_index=True,
         height=320,
     )

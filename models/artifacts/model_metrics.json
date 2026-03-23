@@ -1,8 +1,8 @@
 {
   "model_name": "XGBoost (Tuned)",
-  "auc_roc": 0.7235,
-  "avg_precision": 0.3944,
+  "auc_roc": 0.7214,
+  "avg_precision": 0.3915,
   "optimal_threshold": 0.55,
-  "false_positive_rate": 0.271,
-  "false_negative_rate": 0.4137
+  "false_positive_rate": 0.2729,
+  "false_negative_rate": 0.4149
 }

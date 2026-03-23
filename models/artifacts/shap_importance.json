@@ -1,150 +1,150 @@
 [
   {
     "feature":"sub_grade_enc",
-    "shap_importance":0.3186999857
+    "shap_importance":0.2958000004
   },
   {
     "feature":"grade_x_term",
-    "shap_importance":0.2811999917
+    "shap_importance":0.2782999873
   },
   {
     "feature":"int_rate",
-    "shap_importance":0.1316000074
-  },
-  {
-    "feature":"revol_bal",
-    "shap_importance":0.0961999968
+    "shap_importance":0.1018000022
   },
   {
     "feature":"avg_cur_bal",
-    "shap_importance":0.0869000033
+    "shap_importance":0.0812000036
+  },
+  {
+    "feature":"revol_bal",
+    "shap_importance":0.0799999982
   },
   {
     "feature":"home_enc",
-    "shap_importance":0.0775000006
-  },
-  {
-    "feature":"loan_to_income",
-    "shap_importance":0.069600001
+    "shap_importance":0.071800001
   },
   {
     "feature":"dti_x_int_rate",
-    "shap_importance":0.0675999969
+    "shap_importance":0.0697000027
   },
   {
-    "feature":"revol_util",
-    "shap_importance":0.0650999993
-  },
-  {
-    "feature":"num_bc_sats",
-    "shap_importance":0.0649000034
+    "feature":"loan_to_income",
+    "shap_importance":0.0691
   },
   {
     "feature":"mort_acc",
-    "shap_importance":0.0610000007
+    "shap_importance":0.0631999969
+  },
+  {
+    "feature":"num_bc_sats",
+    "shap_importance":0.0615999997
   },
   {
     "feature":"term_months",
-    "shap_importance":0.0601999983
+    "shap_importance":0.0612000003
   },
   {
-    "feature":"loan_amnt",
-    "shap_importance":0.0584000014
+    "feature":"revol_util",
+    "shap_importance":0.0601000004
   },
   {
     "feature":"inc_x_dti",
-    "shap_importance":0.0513999984
+    "shap_importance":0.0531000011
   },
   {
-    "feature":"open_acc",
-    "shap_importance":0.0498999991
-  },
-  {
-    "feature":"dti",
-    "shap_importance":0.0480999984
-  },
-  {
-    "feature":"total_acc",
-    "shap_importance":0.0474000014
-  },
-  {
-    "feature":"emp_length",
-    "shap_importance":0.0465000011
+    "feature":"loan_amnt",
+    "shap_importance":0.0469999984
   },
   {
     "feature":"verification_enc",
-    "shap_importance":0.0456000008
+    "shap_importance":0.0469999984
+  },
+  {
+    "feature":"dti",
+    "shap_importance":0.0443999991
+  },
+  {
+    "feature":"emp_length",
+    "shap_importance":0.0428999998
+  },
+  {
+    "feature":"open_acc",
+    "shap_importance":0.0428000018
   },
   {
     "feature":"inq_last_6mths",
-    "shap_importance":0.0421999991
+    "shap_importance":0.0386999995
   },
   {
-    "feature":"annual_inc",
-    "shap_importance":0.0370000005
-  },
-  {
-    "feature":"revol_util_x_bal",
-    "shap_importance":0.0346999988
+    "feature":"total_acc",
+    "shap_importance":0.0361000001
   },
   {
     "feature":"inq_x_delinq",
-    "shap_importance":0.0313999988
+    "shap_importance":0.0310999993
+  },
+  {
+    "feature":"annual_inc",
+    "shap_importance":0.0296999998
   },
   {
     "feature":"bc_util",
-    "shap_importance":0.0303000007
+    "shap_importance":0.0276999995
   },
   {
     "feature":"sector_enc",
-    "shap_importance":0.0275999997
-  },
-  {
-    "feature":"installment",
-    "shap_importance":0.0252999999
-  },
-  {
-    "feature":"mths_since_last_delinq",
-    "shap_importance":0.0242999997
-  },
-  {
-    "feature":"tot_cur_bal",
-    "shap_importance":0.0230999999
+    "shap_importance":0.0265999995
   },
   {
     "feature":"pub_rec",
-    "shap_importance":0.0212999992
+    "shap_importance":0.0219000001
+  },
+  {
+    "feature":"mths_since_last_delinq",
+    "shap_importance":0.0218000002
+  },
+  {
+    "feature":"revol_util_x_bal",
+    "shap_importance":0.0206000004
+  },
+  {
+    "feature":"installment",
+    "shap_importance":0.0197000001
   },
   {
     "feature":"pct_tl_nvr_dlq",
-    "shap_importance":0.0194000006
+    "shap_importance":0.0175999999
+  },
+  {
+    "feature":"tot_cur_bal",
+    "shap_importance":0.0142000001
   },
   {
     "feature":"num_rev_accts",
-    "shap_importance":0.0184000004
-  },
-  {
-    "feature":"payment_to_income",
-    "shap_importance":0.0160000008
+    "shap_importance":0.0141000003
   },
   {
     "feature":"grade_enc",
-    "shap_importance":0.0137999998
+    "shap_importance":0.0131000001
   },
   {
-    "feature":"delinq_2yrs",
-    "shap_importance":0.0120000001
+    "feature":"payment_to_income",
+    "shap_importance":0.0129000004
   },
   {
     "feature":"mths_since_last_record",
-    "shap_importance":0.0109999999
+    "shap_importance":0.0102000004
+  },
+  {
+    "feature":"delinq_2yrs",
+    "shap_importance":0.0083999997
   },
   {
     "feature":"num_tl_90g_dpd_24m",
-    "shap_importance":0.0057000001
+    "shap_importance":0.0044999998
   },
   {
     "feature":"funded_ratio",
-    "shap_importance":0.0005
+    "shap_importance":0.0001
   }
 ]

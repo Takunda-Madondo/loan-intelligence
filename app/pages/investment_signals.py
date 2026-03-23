@@ -102,7 +102,7 @@ def render():
                           yaxis=dict(range=[agg["roi"].min()*0.9, agg["roi"].max()*1.12]))
         card("ROI vs Risk Score - Opportunity Matrix",
              "Green zone = invest | Right of line = avoid | Bubble size = loan volume")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
         card_end()
 
     # Country-level top opportunities
@@ -126,8 +126,8 @@ def render():
             "sector":"Sector","country_code":"Country","total_loans":"Loans",
             "avg_loan_amount":"Avg Loan","default_rate":"Risk Score",
             "roi_score":"ROI Score","risk_tier":"Risk Tier","female_borrower_pct":"% Female"
-        }).style.applymap(colour_risk, subset=["Risk Tier"]),
-        use_container_width=True, hide_index=True, height=280
+        }).style.map(colour_risk, subset=["Risk Tier"]),
+        width='stretch', hide_index=True, height=280
     )
     card_end()
 
@@ -149,7 +149,7 @@ def render():
         apply_layout(fig, 220, legend=True)
         fig.update_layout(legend=dict(font_size=11, orientation="h", y=-0.2))
         card(f"{sel} - ROI by Country")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
         card_end()
 
     with col2:
@@ -159,5 +159,5 @@ def render():
                          labels={"avg_gdp_growth":"GDP Growth (%)","default_rate":"Default Rate (%)"})
         apply_layout(fig, 220, legend=False)
         card(f"{sel} - Macro Risk vs Default Rate")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
         card_end()
