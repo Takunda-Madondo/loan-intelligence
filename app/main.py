@@ -204,9 +204,9 @@ for k, v in [("page", "Portfolio Overview"), ("chat_history", []), ("ai_open", F
 
 PAGES = {
     "Portfolio Overview":      "Overview of all key metrics and investment signals",
+    "Default Risk Map":        "Geographic risk distribution across markets",
     "Investment Signals":      "Where to invest and where to avoid - by sector & country",
     "Portfolio Optimisation":  "LP-optimised capital allocation across Conservative, Balanced and Aggressive profiles",
-    "Default Risk Map":        "Geographic risk distribution across markets",
     "Loan Predictor":          "Score individual loans for default probability",
 }
 
